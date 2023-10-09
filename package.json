@@ -18,6 +18,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"boardgame.io": "^0.50.2"
+		"boardgame.io": "^0.44.4"
 	}
 }

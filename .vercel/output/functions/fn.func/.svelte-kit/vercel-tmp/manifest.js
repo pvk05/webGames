@@ -10,7 +10,7 @@ return {
 	assets: new Set(["favicon.png"]),
 	mimeTypes: {".png":"image/png"},
 	_: {
-		client: {"start":"_app/immutable/entry/start.8e3f44c3.js","app":"_app/immutable/entry/app.15f7e7d6.js","imports":["_app/immutable/entry/start.8e3f44c3.js","_app/immutable/chunks/scheduler.e108d1fd.js","_app/immutable/chunks/singletons.0e9f041d.js","_app/immutable/entry/app.15f7e7d6.js","_app/immutable/chunks/scheduler.e108d1fd.js","_app/immutable/chunks/index.a21d6cee.js"],"stylesheets":[],"fonts":[]},
+		client: {"start":"_app/immutable/entry/start.83da720d.js","app":"_app/immutable/entry/app.41d65c2c.js","imports":["_app/immutable/entry/start.83da720d.js","_app/immutable/chunks/scheduler.e108d1fd.js","_app/immutable/chunks/singletons.99ccd18c.js","_app/immutable/entry/app.41d65c2c.js","_app/immutable/chunks/scheduler.e108d1fd.js","_app/immutable/chunks/index.a21d6cee.js"],"stylesheets":[],"fonts":[]},
 		nodes: [
 			__memo(() => import('../output/server/nodes/0.js')),
 			__memo(() => import('../output/server/nodes/1.js')),
@@ -18,8 +18,7 @@ return {
 			__memo(() => import('../output/server/nodes/3.js')),
 			__memo(() => import('../output/server/nodes/4.js')),
 			__memo(() => import('../output/server/nodes/5.js')),
-			__memo(() => import('../output/server/nodes/6.js')),
-			__memo(() => import('../output/server/nodes/7.js'))
+			__memo(() => import('../output/server/nodes/6.js'))
 		],
 		routes: [
 			{
@@ -37,24 +36,17 @@ return {
 				endpoint: null
 			},
 			{
-				id: "/boardGame",
-				pattern: /^\/boardGame\/?$/,
-				params: [],
-				page: { layouts: [0,], errors: [1,], leaf: 5 },
-				endpoint: null
-			},
-			{
 				id: "/clickerGame",
 				pattern: /^\/clickerGame\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 6 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 5 },
 				endpoint: null
 			},
 			{
 				id: "/clickerGame/info",
 				pattern: /^\/clickerGame\/info\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 7 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 6 },
 				endpoint: null
 			}
 		],

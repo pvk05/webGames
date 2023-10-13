@@ -1,7 +1,7 @@
 <!-- Game.svelte -->
 <script>
     import { Client } from "boardgame.io/client";
-    import { MyGame } from "./my-game";
+    //import { MyGame } from "./my-game";
 
     const App = Client({
         game: MyGame,

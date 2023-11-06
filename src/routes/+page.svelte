@@ -6,3 +6,5 @@
 <a href="/battleship">Battleship</a>
 <br>
 <a href="/boardGame">BoardGame</a>
+<br>
+<a href="https://easyclicker.netlify.app/">easyclicker</a>

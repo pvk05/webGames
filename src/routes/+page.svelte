@@ -8,3 +8,5 @@
 <a href="/boardGame">BoardGame</a>
 <br>
 <a href="https://easyclicker.netlify.app/">easyclicker</a>
+<br>
+<a href="https://chemclicker.netlify.app/">chemclicker</a>

@@ -6,21 +6,45 @@
     import Center from "./center.svelte";
 
     let board = [
-        [Wall, Wall, Wall, Wall, Wall, Wall, Wall, Wall, Wall, Wall, Wall, Wall, Wall],
-        [Wall, Home, Home, Blank, Path, Path, Path, Path, Path, Blank, Home, Home, Wall],
-        [Wall, Home, Home, Blank, Path, Blank, Path, Blank, Path, Blank, Home, Home, Wall],
-        [Wall, Blank, Blank, Blank, Path, Blank, Path, Blank, Path, Blank, Blank, Blank, Wall],
-        [Wall, Path, Path, Path, Path, Blank, Path, Blank, Path, Path, Path, Path, Wall],
-        [Wall, Path, Blank, Blank, Blank, Center, Center, Center, Blank, Blank, Blank, Path, Wall],
-        [Wall, Path, Path, Path, Path, Center, Center, Center, Path, Path, Path, Path, Wall],
-        [Wall, Path, Blank, Blank, Blank, Center, Center, Center, Blank, Blank, Blank, Path, Wall],
-        [Wall, Path, Path, Path, Path, Blank, Path, Blank, Path, Path, Path, Path, Wall],
-        [Wall, Blank, Blank, Blank, Path, Blank, Path, Blank, Path, Blank, Blank, Blank, Wall],
-        [Wall, Home, Home, Blank, Path, Blank, Path, Blank, Path, Blank, Home, Home, Wall],
-        [Wall, Home, Home, Blank, Path, Path, Path, Path, Path, Blank, Home, Home, Wall],
-        [Wall, Wall, Wall, Wall, Wall, Wall, Wall, Wall, Wall, Wall, Wall, Wall, Wall],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 2, 2, 3, 1, 1, 1, 1, 1, 3, 2, 2, 0],
+        [0, 2, 2, 3, 1, 3, 1, 3, 1, 3, 2, 2, 0],
+        [0, 3, 3, 3, 1, 3, 1, 3, 1, 3, 3, 3, 0],
+        [0, 1, 1, 1, 1, 3, 1, 3, 1, 1, 1, 1, 0],
+        [0, 1, 3, 3, 3, 4, 4, 4, 3, 3, 3, 1, 0],
+        [0, 1, 1, 1, 1, 4, 4, 4, 1, 1, 1, 1, 0],
+        [0, 1, 3, 3, 3, 4, 4, 4, 3, 3, 3, 1, 0],
+        [0, 1, 1, 1, 1, 3, 1, 3, 1, 1, 1, 1, 0],
+        [0, 3, 3, 3, 1, 3, 1, 3, 1, 3, 3, 3, 0],
+        [0, 2, 2, 3, 1, 3, 1, 3, 1, 3, 2, 2, 0],
+        [0, 2, 2, 3, 1, 1, 1, 1, 1, 3, 2, 2, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     ];
 
+    let home = 0
+    const homeColors = ["yellow", "green", "red", "orange"]
+
+    let homeOrder = [0, 0, 1, 1, 0, 0, 1, 1, 2, 2, 3, 3, 2, 2, 3, 3]
+    let homeNumOrder = [0, 1, 0, 1, 2, 3, 2, 3, 0, 1, 0, 1, 2, 3, 2, 3]
+    
+    function insertHome() {
+
+        let data = {color: homeColors[homeOrder[home]], p: homeOrder[home], homeNumber: homeNumOrder[home]}
+        console.log(data)
+        home++
+        return data
+
+        /*
+        if(home >= 4) {
+            p++
+            home = 0
+        }
+
+        let data = {color: homeColors[p], homeNumber: home}
+        home++
+        console.log(data)
+        return data*/
+    }
     
 </script>
 
@@ -39,7 +63,17 @@
     {#each board as row}
         <div>
             {#each row as cell}
-                <svelte:component this={cell} />
+                {#if cell === 0}
+                    <Wall />
+                {:else if cell === 1}
+                    <Path />
+                {:else if cell === 2}
+                    <Home data={insertHome()}/>
+                {:else if cell === 3}
+                    <Blank />
+                {:else if cell === 4}
+                    <Center />
+                {/if}
             {/each}
         </div>
     {/each}

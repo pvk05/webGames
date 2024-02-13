@@ -9,7 +9,7 @@
 
 </script>
 
-<div id="board" class="board w-board h-board border-8 border-black m-4">
+<div id="board" class="board aspect-square h-board border-4 border-black m-4">
 	<div class="h-[40%] w-full row-1">
 		<Home player={1}/><!--
 		--><TopPath /><!--

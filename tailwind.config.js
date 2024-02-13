@@ -4,20 +4,20 @@ export default {
   theme: {
     extend: {
       width: {
-        board: "500px",
+        board: "85vh",
         home: "200px",
         100: "100px",
       },
       height: {
-        board: "500px",
+        board: "85vh",
         home: "200px",
         100: "100px",
       },
       colors: {
-        player1: "#FF0000",
-        player2: "#0000FF",
-        player3: "#00FF00",
-        player4: "#FFFF00",
+        player3: "#FF0000",
+        player4: "orange",
+        player2: "#00FF00",
+        player1: "#fff033",
       },
       borderWidth: {
         1: "1px",

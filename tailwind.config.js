@@ -15,7 +15,7 @@ export default {
       },
       colors: {
         player3: "#FF0000",
-        player4: "orange",
+        player4: "#ffa500",
         player2: "#00FF00",
         player1: "#fff033",
       },

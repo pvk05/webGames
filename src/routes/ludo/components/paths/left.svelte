@@ -1,14 +1,16 @@
 <script>
     import Piece from "../piece.svelte";
 
+	export let player;
 
+	const color = "bg-player" + player;
 </script>
 
 <div class=" w-[40%] h-full inline-block bg-slate-600">
 
 	<div class="row1 h-1/3 align-top flex">
 		<div id="path-52" class="path w-1/6">
-		</div><div id="path-1" class="path w-1/6 bg-player1">
+		</div><div id="path-1" class="path w-1/6 {color}">
 		</div><div id="path-2" class="path w-1/6">
 		</div><div id="path-3" class="path w-1/6">
 		</div><div id="path-4" class="path w-1/6">
@@ -17,11 +19,11 @@
 	</div>
 	<div class="row2 h-1/3 align-top flex">
 		<div id="path-51" class="path w-1/6">
-		</div><div id="p3-in-1" class="path w-1/6 bg-player1">
-		</div><div id="p3-in-2" class="path w-1/6 bg-player1">
-		</div><div id="p3-in-3" class="path w-1/6 bg-player1">
-		</div><div id="p3-in-4" class="path w-1/6 bg-player1">
-		</div><div id="p3-in-5" class="path w-1/6 bg-player1">
+		</div><div id="p{player}-in-1" class="path w-1/6 {color}">
+		</div><div id="p{player}-in-2" class="path w-1/6 {color}">
+		</div><div id="p{player}-in-3" class="path w-1/6 {color}">
+		</div><div id="p{player}-in-4" class="path w-1/6 {color}">
+		</div><div id="p{player}-in-5" class="path w-1/6 {color}">
 		</div>
 	</div>
 	<div class="row3 h-1/3 align-top flex">

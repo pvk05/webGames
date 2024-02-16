@@ -19,4 +19,4 @@
 
 <div id="diceRoll" class="aspect-square h-16 m-auto">
     <img id="diceImg" src={diceSix} alt="dice" class="w-full h-full" />
-</div>`;
+</div>

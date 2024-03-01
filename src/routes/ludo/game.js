@@ -1,6 +1,6 @@
 import { browser } from "$app/environment";
 import { get, writable } from "svelte/store";
-import Piece from './components/Piece.svelte';
+import Piece from './components/piece.svelte';
 
 // game state
 export let gameState = writable("not started");

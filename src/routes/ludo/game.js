@@ -142,6 +142,8 @@ export function move(player, num) {
         newID = parseInt(pawn.pos) + get(roll); //set new position to current position + roll
     }
 
+    if(newID > 52) newID -= 52; //if new position is greater than 52, set new position to new position - 52
+
     let newSpot = document.getElementById(`path-${newID}`); //get new position element
     while (newSpot.hasChildNodes()) { //if new position has child nodes
         let otherPlayer = parseInt(newSpot.childNodes[0].id[1]);

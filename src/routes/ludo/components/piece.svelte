@@ -1,4 +1,5 @@
 <script>
+    import { move } from "../game.js";
 
     export let player;
     export let num;
@@ -7,6 +8,6 @@
 </script>
 
 
-<div id="p{player}piece#{num}" class=" aspect-square h-2/3 m-auto {color} rounded-full border-2 border-black">
+<div id="p{player}piece#{num}" class="aspect-square h-2/3 m-auto {color} rounded-full border-2 border-black" on:click={() => move(player, num)} on:keydown={() => {}} role="button" tabindex="0">
 
 </div>

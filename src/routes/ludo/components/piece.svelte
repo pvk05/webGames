@@ -8,6 +8,6 @@
 </script>
 
 
-<div id="p{player}piece#{num}" class="aspect-square h-2/3 m-auto {color} rounded-full border-2 border-black" on:click={() => move(player, num)} on:keydown={() => {}} role="button" tabindex="0">
+<div id="p{player}piece#{num}" class="aspect-square w-2/3 m-auto {color} rounded-full border-2 border-black" on:click={() => move(player, num)} on:keydown={() => {}} role="button" tabindex="0">
 
 </div>

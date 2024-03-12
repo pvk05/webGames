@@ -7,8 +7,10 @@
     import diceFive from "$lib/assets/dice-five-solid.svg";
     import diceSix from "$lib/assets/dice-six-solid.svg";
 
+    import { Button } from 'flowbite-svelte';
+
     // array of dice images
-    const diceImgs = [diceOne, diceTwo, diceThree, diceFour, diceFive, diceSix]
+    const diceImgs = [diceOne, diceTwo, diceThree, diceFour, diceFive, diceSix];
 
     // function to roll the dice
     function rollFunc(e) {
@@ -21,10 +23,13 @@
     }
 </script>
 
-<button on:click={() => roll.set(Math.floor(Math.random() * 6) + 1)}>Roll Dice</button>
-
-<div id="diceRoll" class="aspect-square h-16 m-auto">
-    <img id="diceImg" src={diceImgs[$roll-1]} alt="dice" class="w-full h-full" />
+<div class=" h-fit m-4 p-4 self-center">
+    <Button class=" !bg-emerald-600" on:click={() => roll.set(Math.floor(Math.random() * 6) + 1)}>Roll Dice</Button>
+    <br><br>
+    <div id="diceRoll" class="aspect-square h-24 m-auto">
+        <img id="diceImg" src={diceImgs[$roll-1]} alt="dice" class="w-full h-full" />
+    </div>
 </div>
+
 
 <svelte:window on:keydown|preventDefault={rollFunc} />

@@ -8,13 +8,17 @@
 
 <h1 class=" h1">Ludo</h1>
 
-<Button on:click={() => createGame(2)} class=" !bg-emerald-700">2p</Button>
-<Button on:click={() => createGame(3)} class=" !bg-emerald-700">3p</Button>
-<Button on:click={() => createGame(4)} class=" !bg-emerald-700">4p</Button>
+<div class=" m-auto w-fit">
+    <Button on:click={() => createGame(2)} class=" !bg-emerald-700">2p</Button>
+    <Button on:click={() => createGame(3)} class=" !bg-emerald-700">3p</Button>
+    <Button on:click={() => createGame(4)} class=" !bg-emerald-700">4p</Button>
+</div>
 
-<Board />
+<div class=" w-full flex justify-center align-baseline">
+    <Board />
 
-<DiceRoll />
+    <DiceRoll />
+</div>
 
 <p class="bg-player1">Player 1</p>
 <p class="bg-player2">Player 2</p>

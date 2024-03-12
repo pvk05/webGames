@@ -13,7 +13,7 @@ const playerStartPaths = {
     4: 40
 }
 
-// get home elements
+// home elements
 let homes;
 if(browser) {
     homes = {
@@ -45,7 +45,14 @@ if(browser) {
 }
 
 
-// game class
+/**
+ * Game class
+ * @class Game
+ * @param { Number } numOfPlayers - Number of players
+ * @property { Array } players - Array of players
+ * @property { Number } playerNumber - Number of players
+ * @method addPlayer - Method to add player to game
+ */
 class Game {
     constructor(numOfPlayers) {
         this.players = [];
@@ -56,7 +63,15 @@ class Game {
     }
 }
 
-// player class
+
+/**
+ * Player class
+ * @class Player
+ * @param { String } name - Player name
+ * @param { String } homePath - Player home path
+ * @property { Array } pawns - Array of pawns
+ * @property { String } homePath - Player home path
+ */
 class Player {
     constructor(name, homePath) {
         this.name = name;
@@ -65,13 +80,27 @@ class Player {
     }
 }
 
+
+/**
+ * Function to create players
+ * @param { String } name - Player name
+ * @param { String } color - Player color
+ * @returns 
+ */
 function createPlayer(name, color) {
     const player = new Player(name, color);
     console.log('Player created');
     return player;
 }
 
-// pawn class
+
+/**
+ * Pawn class
+ * @class Pawn
+ * @param { String } name - Pawn name
+ * @param { Object } element - Pawn element
+ * @param { String } pos - Pawn position
+ */
 class Pawn {
     constructor(name, element, pos) {
         this.name = name;
@@ -82,7 +111,12 @@ class Pawn {
 
 let game; //game object
 
-// create game
+
+/**
+ * Function to create game
+ * @param { Number } players - Number of players
+ * @returns 
+ */
 export function createGame(players) {
     if(get(gameState) !== "not started") return; //if game is already started, return
     game = new Game(players); //create game
@@ -120,14 +154,24 @@ export function createGame(players) {
     startGame(game) //start game
 }
 
-// start game
+
+/**
+ * Function to start game
+ * @param { Object } game - The game object
+ */
 export function startGame(game) {
     gameState.set("started");
     console.log('Game started');
     console.log(game);
 }
 
-// move pawn
+
+/**
+ * Function to move pawn
+ * @param { Number } player Player number
+ * @param { Number } num Pawn number
+ * @returns 
+ */
 export function move(player, num) {
     if(!get(roll)) return; //if no roll, return
     console.log('move');

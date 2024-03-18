@@ -228,16 +228,9 @@ export function move(player, num) {
 
     roll.set(null); //reset roll
 
-    console.log(pawn)
-
     if( pawn.heading === 'out') return; //if pawn is heading out, return and do not change player turn
     else if (player === game.playerNumber) playerTurn.set(1); //if player is last player, set player turn to 1
     else playerTurn.update(n => n+1); //else increment player turn
-}
-
-function moveIn(player, num) {
-    const pawn = game.players[player-1].pawns[num];
-    console.log('move in', pawn);
 }
 
 // store for roll

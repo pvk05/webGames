@@ -182,56 +182,98 @@ export function move(player, num) {
     if(!get(roll)) return; //if no roll, return
     console.log('move');
     const pawn = game.players[player-1].pawns[num]; //get pawn
+    console.log(game.players[player-1].pawns, num, pawn)
     let newID; //new position
+    let newSpot; //new position element
 
     if(pawn.pos === 'home') { //if pawn is in home
         if(get(roll) !== 6) return; //if roll is not 6, return
 
-        newID = playerStartPaths[player]; //set new position to start path
-    } else { //if pawn is on path
-        newID = parseInt(pawn.pos) + get(roll); //set new position to current position + roll
-    }
+        moveOut(pawn, player, num); //move pawn out
 
-    if(newID > 52) newID -= 52; //if new position is greater than 52, set new position to new position - 52
+        return;
 
-    let newSpot = document.getElementById(`path-${newID}`); //get new position element
-    while (newSpot.hasChildNodes()) { //if new position has child nodes
-        let otherPlayer = parseInt(newSpot.childNodes[0].id[1]);
-        if (otherPlayer === player) { //if other player is same as current player
-            newID++; //increment new position
+    } 
+
+    function loop(i) { 
+        setTimeout(function () {   
+     
+            console.log("step"+i); // your code
+
+            newID = pawn.pos + 1; //new position
+            pawn.steps++; //add steps
+
+            if(newID > 52) newID -= 52; //if new position is greater than 52, set new position to new position - 52
+
             newSpot = document.getElementById(`path-${newID}`); //get new position element
-        } else { //if other player is different
-            //send other pawn home
-            let otherNum = parseInt(newSpot.childNodes[0].id[8]); //get pawn number
-            let otherPawn = game.players[otherPlayer - 1].pawns[otherNum]; //get pawn
-            otherPawn.element.$destroy(); //destroy pawn element
-            otherPawn.pos = 'home'; //set pawn position to home
-            otherPawn.element = new Piece({ //create new pawn element
-                props: {
-                    player: otherPlayer,
-                    num: otherNum
-                },
-                target: homes[`p${otherPlayer}`][otherNum] //set target to home
-            });
-        }
-    }
 
-    pawn.element.$destroy(); //destroy pawn element
-    pawn.element = new Piece({ //create new pawn element
-        props: {
-            player: player, 
-            num: num
-        },
-        target: newSpot
-    });
-    pawn.pos = newID; //set pawn position to new position
+            movePawn(pawn, newID, newSpot, player, num, "around"); //move pawn
+
+
+            if (--i) loop(i); // iteration counter
+        }, 1000) // delay
+    }
+    loop(get(roll)); // iterations count 
+
+    //checkForOtherPieces(newSpot, player, pawn, newID, num); //check for other pieces
 
     roll.set(null); //reset roll
 
-    if( pawn.heading === 'out') return; //if pawn is heading out, return and do not change player turn
-    else if (player === game.playerNumber) playerTurn.set(1); //if player is last player, set player turn to 1
+    console.log(pawn);
+
+    if (player === game.playerNumber) playerTurn.set(1); //if player is last player, set player turn to 1
     else playerTurn.update(n => n+1); //else increment player turn
 }
 
 // store for roll
 export var roll = writable(null);
+
+
+function movePawn(pawn, newPos, newTarget, player, num, heading) {
+    console.log("movePawn", pawn, newPos, newTarget, player, num, heading)
+    pawn.element.$destroy();
+    pawn.element = new Piece({
+        props: {
+            player: player,
+            num: num
+        },
+        target: newTarget
+    });
+    pawn.pos = newPos;   
+    pawn.heading = heading;
+    return;
+}
+
+function moveOut(pawn, player, num) {
+    pawn.element.$destroy();
+    pawn.element = new Piece({
+        props: {
+            player: player,
+            num: num
+        },
+        target: document.getElementById(`path-${playerStartPaths[player]}`)
+    });
+    pawn.pos = playerStartPaths[player];
+
+    //checkForOtherPieces(document.getElementById(`path-${playerStartPaths[player]}`), player, pawn, playerStartPaths[player], num);
+
+    return;
+}
+
+function checkForOtherPieces(newSpot, player, pawn, newID, num) {
+    while (newSpot.hasChildNodes()) { //if new position has child nodes
+        let otherPlayer = parseInt(newSpot.childNodes[0].id[1]);
+        if (otherPlayer === player) { //if other player is same as current player
+            newID++; //increment new position
+            pawn.steps++; //add steps
+            newSpot = document.getElementById(`path-${newID}`); //get new position element
+            movePawn(pawn, newID, newSpot, player, num, "around"); //move pawn
+        } else { //if other player is different
+            //send other pawn home
+            let otherNum = parseInt(newSpot.childNodes[0].id[8]); //get pawn number
+            let otherPawn = game.players[otherPlayer - 1].pawns[otherNum]; //get pawn
+
+            movePawn(otherPawn, 'home', homes[`p${otherPlayer}`][otherNum], otherPlayer, otherNum, 'out');
+        }
+    }
+}

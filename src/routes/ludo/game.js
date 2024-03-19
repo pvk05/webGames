@@ -8,6 +8,8 @@ export let gameState = writable("not started");
 // player turn
 export let playerTurn = writable(1);
 
+export let points = writable([0, 0, 0, 0]);
+
 // player start paths
 const playerStartPaths = {
     1: 1,
@@ -88,7 +90,7 @@ class Player {
  * Function to create players
  * @param { String } name - Player name
  * @param { String } color - Player color
- * @returns 
+ * @returns { Object } - Player object
  */
 function createPlayer(name, color) {
     const player = new Player(name, color);
@@ -103,18 +105,21 @@ function createPlayer(name, color) {
  * @param { String } name - Pawn name
  * @param { Object } element - Pawn element
  * @param { String } pos - Pawn position
+ * @property { String } name - Pawn name
+ * @property { Object } element - Pawn element
+ * @property { String } pos - Pawn position
+ * @property { Number } steps - Pawn steps
  */
 class Pawn {
     constructor(name, element, pos) {
         this.name = name;
         this.element = element;
-        this.pos = pos
-        this.heading = 'out';
+        this.pos = pos;
         this.steps = 0;
     }
 }
 
-let game; //game object
+export let game; //game object
 
 
 /**
@@ -191,6 +196,8 @@ export function move(player, num) {
 
         moveOut(pawn, player, num); //move pawn out
 
+        roll.set(null); //reset roll
+
         return;
 
     } 
@@ -205,13 +212,30 @@ export function move(player, num) {
 
             if(newID > 52) newID -= 52; //if new position is greater than 52, set new position to new position - 52
 
-            newSpot = document.getElementById(`path-${newID}`); //get new position element
+            if(pawn.steps > 57) { //if steps is greater than 52
+                points.update(n => {
+                    n[player-1] += 1;
+                    return n;
+                });
+                console.log(points);
+                pawn.element.$destroy(); //destroy pawn
+                roll.set(null); //reset roll
+                return;
+            }
+            else if ( pawn.steps > 52 ) {
+                moveIn(pawn, player, num, pawn.steps - 52); //move pawn in to finish
+            }
+            else {
+                newSpot = document.getElementById(`path-${newID}`); //get new position element
 
-            movePawn(pawn, newID, newSpot, player, num, "around"); //move pawn
+                movePawn(pawn, newID, newSpot, player, num); //move pawn
+            }
+
+            
 
 
             if (--i) loop(i); // iteration counter
-        }, 1000) // delay
+        }, 300) // delay
     }
     loop(get(roll)); // iterations count 
 
@@ -228,9 +252,17 @@ export function move(player, num) {
 // store for roll
 export var roll = writable(null);
 
-
-function movePawn(pawn, newPos, newTarget, player, num, heading) {
-    console.log("movePawn", pawn, newPos, newTarget, player, num, heading)
+/**
+ * Function to move the pawn to new position
+ * @param { Object } pawn - Pawn object
+ * @param { * } newPos - New position
+ * @param { Element } newTarget - New position element
+ * @param { Number } player - Player number
+ * @param { Number } num - Pawn number
+ * @returns 
+ */
+function movePawn(pawn, newPos, newTarget, player, num) {
+    console.log("movePawn", pawn, newPos, newTarget, player, num)
     pawn.element.$destroy();
     pawn.element = new Piece({
         props: {
@@ -239,11 +271,17 @@ function movePawn(pawn, newPos, newTarget, player, num, heading) {
         },
         target: newTarget
     });
-    pawn.pos = newPos;   
-    pawn.heading = heading;
+    pawn.pos = newPos;
     return;
 }
 
+/**
+ * Function to move pawn out of home
+ * @param { Object } pawn - Pawn object
+ * @param { Number } player - Player number
+ * @param { Number } num - Pawn number
+ * @returns 
+ */
 function moveOut(pawn, player, num) {
     pawn.element.$destroy();
     pawn.element = new Piece({
@@ -260,20 +298,86 @@ function moveOut(pawn, player, num) {
     return;
 }
 
+/**
+ * Function to move pawn in to finish
+ * @param { Object } pawn - Pawn object
+ * @param { Number} player - Player number
+ * @param { Number } num - Pawn number
+ * @param { Number } newID - New position
+ * @returns 
+ */
+function moveIn(pawn, player, num, newID) {
+    console.log("moveIn", pawn, player, num, newID)
+    pawn.element.$destroy();
+    pawn.element = new Piece({
+        props: {
+            player: player,
+            num: num
+        },
+        target: document.getElementById(`p${player}-in-${newID}`)
+    });
+    pawn.pos = 'in-' + newID;
+    return;
+}
+
+/**
+ * Function to check for other pieces
+ * @param { Element } newSpot - New position element
+ * @param { Number } player - Player number
+ * @param { Number} pawn - Pawn object
+ * @param { Number } newID - New position
+ * @param { Number } num - Pawn number
+ */
 function checkForOtherPieces(newSpot, player, pawn, newID, num) {
     while (newSpot.hasChildNodes()) { //if new position has child nodes
         let otherPlayer = parseInt(newSpot.childNodes[0].id[1]);
+
         if (otherPlayer === player) { //if other player is same as current player
             newID++; //increment new position
             pawn.steps++; //add steps
             newSpot = document.getElementById(`path-${newID}`); //get new position element
-            movePawn(pawn, newID, newSpot, player, num, "around"); //move pawn
-        } else { //if other player is different
+            movePawn( 
+                pawn, 
+                newID, 
+                newSpot, 
+                player, 
+                num
+            ); //move pawn
+        } 
+        else { //if other player is different
             //send other pawn home
             let otherNum = parseInt(newSpot.childNodes[0].id[8]); //get pawn number
             let otherPawn = game.players[otherPlayer - 1].pawns[otherNum]; //get pawn
 
-            movePawn(otherPawn, 'home', homes[`p${otherPlayer}`][otherNum], otherPlayer, otherNum, 'out');
+            movePawn(
+                otherPawn, 
+                'home', 
+                homes[`p${otherPlayer}`][otherNum], 
+                otherPlayer, 
+                otherNum
+            );
         }
     }
 }
+
+points.subscribe(value => {
+    if(value[0] === 4) {
+        gameState.set("p1 won");
+    }
+    else if(value[1] === 4) {
+        gameState.set("p2 won");
+    }
+    else if(value[2] === 4) {
+        gameState.set("p3 won");
+    }
+    else if(value[3] === 4) {
+        gameState.set("p4 won");
+    }
+});
+
+gameState.subscribe(value => {
+    if(value === "p1 won" || value === "p2 won" || value === "p3 won" || value === "p4 won") {
+        roll.set(null);
+        alert(value.toUpperCase());
+    }
+});

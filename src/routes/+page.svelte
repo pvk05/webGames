@@ -9,6 +9,8 @@
 <br>
 <a href="/ludo">Ludo</a>
 <br>
+<a href="/websocket">Websocket</a>
+<br>
 <a href="https://easyclicker.netlify.app/">easyclicker</a>
 <br>
 <a href="https://chemclicker.netlify.app/">chemclicker</a>

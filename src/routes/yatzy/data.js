@@ -40,6 +40,11 @@ export const pointDataTemplate = [
 		function: () => allFunctions.oneToSix(6),
 	},
 	{
+		name: "Bonus",
+		id: "bonus",
+		function: null,
+	},
+	{
 		name: "One Pair",
 		id: "onePair",
 		function: allFunctions.onePair,

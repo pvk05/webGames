@@ -2,7 +2,7 @@
     import Dice from "./dice.svelte";
     import NewTable from "./newTable.svelte";
     //import { actplayers, turn } from "./yatzy.js";
-    import { gameState, start } from "./game.js";
+    import { gameState, start, turn } from "./game.js";
     
 </script>
 
@@ -18,5 +18,5 @@
     {/if}
 
 
-    <h3 id="whosTurn"></h3>
+    <h3 id="whosTurn">Player {$turn+1}</h3>
 </div>

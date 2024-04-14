@@ -65,11 +65,33 @@ function twoPairs() {
 }
 
 function threeOfAKind() {
-	console.log("threeOfAKind");
+	let diceValues = get(dice).map((die) => die.value);
+	diceValues.sort((a, b) => b - a);
+	for (let i = 0; i < diceValues.length; i++) {
+		if (diceValues[i] === diceValues[i + 1] && diceValues[i] === diceValues[i + 2]) {
+			pointData.update((data) => {
+				data[get(turn)].scores.threeOfAKind = diceValues[i] * 3;
+				return data;
+			});
+			break;
+		}
+	}
 }
 
 function fourOfAKind() {
-	console.log("fourOfAKind");
+	let diceValues = get(dice).map((die) => die.value);
+	diceValues.sort((a, b) => b - a);
+	for (let i = 0; i < diceValues.length; i++) {
+		if (diceValues[i] === diceValues[i + 1] && 
+			diceValues[i] === diceValues[i + 2] && 
+			diceValues[i] === diceValues[i + 3]) {
+			pointData.update((data) => {
+				data[get(turn)].scores.fourOfAKind = diceValues[i] * 4;
+				return data;
+			});
+			break;
+		}
+	}
 }
 
 function smallStraight() {

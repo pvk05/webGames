@@ -1,13 +1,18 @@
 import { writable } from "svelte/store";
 import { allFunctions } from './functions.js'
 
-
+// Store for the point data
 export let pointData = writable([]);
 
 pointData.subscribe((data) => {
 	console.log(data);
 });
 
+// Template for the point data
+// This template is used to create the initial point data
+// The name is the name of the score
+// The id is the id of the score
+// The function is the function that is called when the score is selected
 export const pointDataTemplate = [
 	{
 		name: "Ones",

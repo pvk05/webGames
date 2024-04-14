@@ -1,11 +1,13 @@
 import { get, writable } from "svelte/store";
 import { pointData } from "./data.js";
 
-
+// Store for the game state
 export let gameState = writable("notStarted");
 
+// Store for the turn
 export let turn = writable(0);
 
+// Store for the dice
 export let dice = writable([
 	{ value: 1, locked: false },
 	{ value: 2, locked: false },
@@ -14,6 +16,9 @@ export let dice = writable([
 	{ value: 5, locked: false },
 ]);
 
+// Function to start the game
+// This function creates the point data for the players
+// It sets the game state to started
 export function start(playerCount) {
 	if( get(gameState) == "started" ) return; 
 	pointData.update((data) => {

@@ -2,7 +2,7 @@ import { dice, turn } from "./game.js";
 import { get } from "svelte/store";
 import { pointData } from "./data.js";
 
-
+// Exported object containing all functions for the scores
 export const allFunctions = {
 	oneToSix: oneToSix,
 	onePair: onePair,
@@ -16,6 +16,8 @@ export const allFunctions = {
 	yatzy: yatzy,
 };
 
+// Function to change turn
+// This function increments the turn by one and resets it to 0 if it reaches the end of the player list
 function changeTurn() {
 	turn.update((t) => t + 1);
 	if (get(turn) >= get(pointData).length) {
@@ -23,7 +25,9 @@ function changeTurn() {
 	}
 }
 
-
+// Functions for one to six
+// This function filters the dice values for the selected number and then sums them
+// The sum is then set as the score for the selected number and the turn is changed
 function oneToSix(value) {
 	if(get(pointData)[get(turn)].scores[value] !== "") return;
 	let diceValues = get(dice).map((die) => die.value);
@@ -37,6 +41,9 @@ function oneToSix(value) {
 	changeTurn();
 }
 
+// Function for one pair
+// This function sorts the dice values in descending order and then checks for pairs
+// The first pair found is set as the score and the turn is changed
 function onePair() {
 	if(get(pointData)[get(turn)].scores.onePair !== "") return;
 	let diceValues = get(dice).map((die) => die.value);
@@ -54,6 +61,9 @@ function onePair() {
 	changeTurn();
 }
 
+// Function for two pairs
+// This function sorts the dice values in descending order and then checks for two pairs
+// The first two different pairs found are set as the score and the turn is changed
 function twoPairs() {
 	if(get(pointData)[get(turn)].scores.twoPairs !== "") return;
 	let diceValues = get(dice).map((die) => die.value);
@@ -69,8 +79,6 @@ function twoPairs() {
 				break;
 			}
 		}
-
-		changeTurn();
 	}
 	if (pair1 === 0 || pair2 === 0) return;
 	pointData.update((data) => {
@@ -78,8 +86,12 @@ function twoPairs() {
 		return data;
 	});
 
+	changeTurn();
 }
 
+// Function for three of a kind
+// This function sorts the dice values in descending order and then checks for three of a kind
+// If three of a kind is found, the score is set and the turn is changed
 function threeOfAKind() {
 	if(get(pointData)[get(turn)].scores.threeOfAKind !== "") return;
 	let diceValues = get(dice).map((die) => die.value);
@@ -97,6 +109,9 @@ function threeOfAKind() {
 	changeTurn();
 }
 
+// Function for four of a kind
+// This function sorts the dice values in descending order and then checks for four of a kind
+// If four of a kind is found, the score is set and the turn is changed
 function fourOfAKind() {
 	if(get(pointData)[get(turn)].scores.fourOfAKind !== "") return;
 	let diceValues = get(dice).map((die) => die.value);
@@ -116,6 +131,10 @@ function fourOfAKind() {
 	changeTurn();
 }
 
+// Function for small straight
+// This function sorts the dice values in descending order and then checks for a small straight
+// Checks for a sequence of 5, 4, 3, 2, 1
+// If a small straight is found, the score is set and the turn is changed
 function smallStraight() {
 	if(get(pointData)[get(turn)].scores.smallStraight !== "") return;
 	let diceValues = get(dice).map((die) => die.value);
@@ -134,6 +153,10 @@ function smallStraight() {
 	changeTurn();
 }
 
+// Function for large straight
+// This function sorts the dice values in descending order and then checks for a large straight
+// Checks for a sequence of 6, 5, 4, 3, 2
+// If a large straight is found, the score is set and the turn is changed
 function largeStraight() {
 	if(get(pointData)[get(turn)].scores.largeStraight !== "") return;
 	let diceValues = get(dice).map((die) => die.value);
@@ -151,6 +174,10 @@ function largeStraight() {
 	changeTurn();
 }
 
+// Function for full house
+// This function sorts the dice values in descending order and then checks for a full house
+// Checks for a three of a kind and a pair, 
+// if both are found, the score is set and the turn is changed
 function fullHouse() {
 	if(get(pointData)[get(turn)].scores.fullHouse !== "") return;
 	let diceValues = get(dice).map((die) => die.value);
@@ -179,6 +206,8 @@ function fullHouse() {
 	changeTurn();
 }
 
+// Function for chance
+// This function sums all dice values and sets the sum as the score for chance
 function chance() {
 	if(get(pointData)[get(turn)].scores.chance !== "") return;
 	let diceValues = get(dice).map((die) => die.value);
@@ -192,6 +221,9 @@ function chance() {
 	changeTurn();
 }
 
+// Function for yatzy
+// This function checks if all dice values are the same
+// If they are, the score is set to 50 and the turn is changed
 function yatzy() {
 	if(get(pointData)[get(turn)].scores.yatzy !== "") return;
 	let diceValues = get(dice).map((die) => die.value);

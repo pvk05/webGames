@@ -82,8 +82,8 @@ function fourOfAKind() {
 	let diceValues = get(dice).map((die) => die.value);
 	diceValues.sort((a, b) => b - a);
 	for (let i = 0; i < diceValues.length; i++) {
-		if (diceValues[i] === diceValues[i + 1] && 
-			diceValues[i] === diceValues[i + 2] && 
+		if (diceValues[i] === diceValues[i + 1] &&
+			diceValues[i] === diceValues[i + 2] &&
 			diceValues[i] === diceValues[i + 3]) {
 			pointData.update((data) => {
 				data[get(turn)].scores.fourOfAKind = diceValues[i] * 4;
@@ -95,21 +95,74 @@ function fourOfAKind() {
 }
 
 function smallStraight() {
-	console.log("smallStraight");
+	let diceValues = get(dice).map((die) => die.value);
+	diceValues.sort((a, b) => b - a);
+	if (diceValues[0] === 6) return;
+	if (diceValues[0] !== 5) return;
+	if (diceValues[1] !== 4) return;
+	if (diceValues[2] !== 3) return;
+	if (diceValues[3] !== 2) return;
+	if (diceValues[4] !== 1) return;
+	pointData.update((data) => {
+		data[get(turn)].scores.smallStraight = 15;
+		return data;
+	});
 }
 
 function largeStraight() {
-	console.log("largeStraight");
+	let diceValues = get(dice).map((die) => die.value);
+	diceValues.sort((a, b) => b - a);
+	if (diceValues[0] !== 6) return;
+	if (diceValues[1] !== 5) return;
+	if (diceValues[2] !== 4) return;
+	if (diceValues[3] !== 3) return;
+	if (diceValues[4] !== 2) return;
+	pointData.update((data) => {
+		data[get(turn)].scores.largeStraight = 20;
+		return data;
+	});
 }
 
 function fullHouse() {
-	console.log("fullHouse");
+	let diceValues = get(dice).map((die) => die.value);
+	diceValues.sort((a, b) => b - a);
+	let pair = 0;
+	let three = 0;
+	for (let i = 0; i < diceValues.length; i++) {
+		if (diceValues[i] === diceValues[i + 1] && diceValues[i] === diceValues[i + 2]) {
+			three = diceValues[i];
+			break;
+		}
+	}
+	if (three === 0) return;
+	for (let i = 0; i < diceValues.length; i++) {
+		if (diceValues[i] === diceValues[i + 1] && diceValues[i] !== three) {
+			pair = diceValues[i];
+			break;
+		}
+	}
+	if (pair === 0) return;
+	pointData.update((data) => {
+		data[get(turn)].scores.fullHouse = pair * 2 + three * 3;
+		return data;
+	});
 }
 
 function chance() {
-	console.log("chance");
+	let diceValues = get(dice).map((die) => die.value);
+	diceValues.sort((a, b) => b - a);
+	const sum = diceValues.reduce((partialSum, a) => partialSum + a, 0);
+	pointData.update((data) => {
+		data[get(turn)].scores.chance = sum;
+		return data;
+	});
 }
 
 function yatzy() {
-	console.log("yatzy");
+	let diceValues = get(dice).map((die) => die.value);
+	if (!diceValues.every((val, i, arr) => val === arr[0])) return
+	pointData.update((data) => {
+		data[get(turn)].scores.yatzy = 50;
+		return data;
+	});
 }

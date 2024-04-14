@@ -1,0 +1,22 @@
+<script>
+    import Dice from "./dice.svelte";
+    import NewTable from "./newTable.svelte";
+    //import { actplayers, turn } from "./yatzy.js";
+    import { gameState, start } from "./game.js";
+    
+</script>
+
+<div id="game" class=" m-auto w-fit">
+
+    <button id="start" class=" border-slate-800 border-1 p-1 rounded-lg my-3 bg-emerald-500" on:click={() => start(1)}>1 player</button>
+    <button id="start" class=" border-slate-800 border-1 p-1 rounded-lg my-3 bg-emerald-500" on:click={() => start(2)}>2 players</button>
+    <button id="start" class=" border-slate-800 border-1 p-1 rounded-lg my-3 bg-emerald-500" on:click={() => start(3)}>3 players</button>
+
+    {#if $gameState == "started"}
+        <NewTable />
+        <Dice />
+    {/if}
+
+
+    <h3 id="whosTurn"></h3>
+</div>

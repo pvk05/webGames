@@ -1,6 +1,7 @@
 <script>
 	import { pointData, pointDataTemplate } from './data.js';
 	import { allFunctions } from './functions.js';
+    import { gameState } from './game.js';
 </script>
 
 <table>
@@ -31,6 +32,14 @@
 			{/each}
 		</tr>
 	{/each}
+	<tr>
+		<td colspan="2">
+			Total
+		</td>
+		{#each $pointData as player, i}
+			<td class="{player.name} total">{#if gameState=="ended"} { player.total } {/if}</td>
+		{/each}
+	</tr>
 </table>
 
 <style>

@@ -12,7 +12,7 @@
     <button id="start" class=" border-slate-800 border-1 p-1 rounded-lg my-3 bg-emerald-500" on:click={() => start(2)}>2 players</button>
     <button id="start" class=" border-slate-800 border-1 p-1 rounded-lg my-3 bg-emerald-500" on:click={() => start(3)}>3 players</button>
 
-    {#if $gameState == "started"}
+    {#if $gameState != "notStarted"}
         <NewTable />
         <Dice />
     {/if}

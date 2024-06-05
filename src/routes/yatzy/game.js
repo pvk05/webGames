@@ -32,7 +32,7 @@ export function start(playerCount) {
 					4: "",
 					5: "",
 					6: "",
-					bonus: "",
+					bonus: " ",
 					onePair: "",
 					twoPairs: "",
 					threeOfAKind: "",
@@ -42,8 +42,8 @@ export function start(playerCount) {
 					fullHouse: "",
 					chance: "",
 					yatzy: "",
-					total: "",
 				},
+				total: null,
 			});
 		}
 		return data;

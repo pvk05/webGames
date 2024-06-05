@@ -1,11 +1,25 @@
 import { writable } from "svelte/store";
 import { allFunctions } from './functions.js'
+import { gameState } from "./game.js";
 
 // Store for the point data
 export let pointData = writable([]);
 
 pointData.subscribe((data) => {
+	if (data.length < 1) return;
 	console.log(data);
+	for (let player in data) {
+		for (let key in data[player].scores) {
+
+			if (data[player].scores[key] === "") return;
+
+		}
+		allFunctions.total(player);
+	}
+	gameState.update(() => {
+		"ended";
+	});
+
 });
 
 // Template for the point data
@@ -93,10 +107,5 @@ export const pointDataTemplate = [
 		name: "Yatzy",
 		id: "yatzy",
 		function: allFunctions.yatzy,
-	},
-	{
-		name: "Total",
-		id: "total",
-		function: null,
-	},
+	}
 ];

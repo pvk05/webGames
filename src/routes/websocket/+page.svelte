@@ -22,20 +22,22 @@
     });
 
     function sendMsg() {
-        let data = {
+        let data = JSON.stringify({
             type: "chatMsg",
-            channel: "chat",
+            channel: "ludo",
             message: msg,
-        };
+        });
 
         ws.send(data);
     }
 
     function subscribeToWs(topic) {
-        ws.send({
+        let data = JSON.stringify({
             type: "subscribe",
             topicName: topic,
-        });
+        })
+
+        ws.send(data);
     }
 </script>
 

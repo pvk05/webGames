@@ -1,7 +1,7 @@
 <script>
     import { Button } from "flowbite-svelte";
 
-    import { dice } from "./game.js";
+    import { dice, diceRolls } from "./game.js";
     import diceOne from "$lib/assets/dice-one-solid.svg";
     import diceTwo from "$lib/assets/dice-two-solid.svg";
     import diceThree from "$lib/assets/dice-three-solid.svg";
@@ -13,6 +13,7 @@
     const diceImgs = ["", diceOne, diceTwo, diceThree, diceFour, diceFive, diceSix];
 
     function rollDice() {
+        if ($diceRolls >= 3) return
         dice.update((data) => {
             data.forEach((die) => {
                 if (!die.locked) {
@@ -21,6 +22,7 @@
             });
             return data;
         });
+        $diceRolls++
     }
 
     function lockDie(die) {
@@ -31,25 +33,27 @@
 
 <Button class=" !bg-emerald-600" on:click={rollDice}>Roll Dice</Button>
 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <div id="dice">
     <div>
-        <div id="die1"><img src={diceImgs[$dice[0].value]} alt="dice" on:click={() => lockDie(0)}/></div>
+        <div id="die1"><img src={diceImgs[$dice[0].value]} alt="" on:click={() => lockDie(0)}/></div>
     </div>
     <div id="die"></div>
     <div>
-        <div id="die2"><img src={diceImgs[$dice[1].value]} alt="dice" on:click={() => lockDie(1)}/></div>
+        <div id="die2"><img src={diceImgs[$dice[1].value]} alt="" on:click={() => lockDie(1)}/></div>
     </div>
     <div id="die"></div>
     <div>
-        <div id="die3"><img src={diceImgs[$dice[2].value]} alt="dice" on:click={() => lockDie(2)}/></div>
+        <div id="die3"><img src={diceImgs[$dice[2].value]} alt="" on:click={() => lockDie(2)}/></div>
     </div>
     <div id="die"></div>
     <div>
-        <div id="die4"><img src={diceImgs[$dice[3].value]} alt="dice" on:click={() => lockDie(3)}/></div>
+        <div id="die4"><img src={diceImgs[$dice[3].value]} alt="" on:click={() => lockDie(3)}/></div>
     </div>
     <div id="die"></div>
     <div>
-        <div id="die5"><img src={diceImgs[$dice[4].value]} alt="dice" on:click={() => lockDie(4)}/></div>
+        <div id="die5"><img src={diceImgs[$dice[4].value]} alt="" on:click={() => lockDie(4)}/></div>
     </div>
 </div>
 

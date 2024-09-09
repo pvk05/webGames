@@ -1,4 +1,4 @@
-import { dice, turn } from "./game.js";
+import { dice, diceRolls, turn } from "./game.js";
 import { get } from "svelte/store";
 import { pointData } from "./data.js";
 
@@ -24,6 +24,23 @@ function changeTurn() {
 	if (get(turn) >= get(pointData).length) {
 		turn.set(0);
 	}
+	resetDice()
+}
+
+function resetDice() {
+	dice.update((data) => {
+		let n = 0
+		data.forEach((die) => {
+			die.value = 0
+			n++
+			if (die.locked) {
+				die.locked = false
+				document.getElementById("die" + (n)).classList.toggle("bg-red-800");
+			}
+		});
+		return data;
+	})
+	diceRolls.set(0)
 }
 
 // Functions for one to six

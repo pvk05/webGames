@@ -37,7 +37,7 @@
 			Total
 		</td>
 		{#each $pointData as player, i}
-			<td class="{player.name} total">{#if gameState=="ended"} { player.total } {/if}</td>
+			<td class="{player.name} total">{#if $gameState=="ended"} { player.total } {/if}</td>
 		{/each}
 	</tr>
 </table>

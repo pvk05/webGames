@@ -1,4 +1,4 @@
-import { writable } from "svelte/store";
+import { writable, get } from "svelte/store";
 import { allFunctions } from './functions.js'
 import { gameState } from "./game.js";
 
@@ -8,6 +8,7 @@ export let pointData = writable([]);
 pointData.subscribe((data) => {
 	if (data.length < 1) return;
 	console.log(data);
+	if (get(gameState) == "ended") return;
 	for (let player in data) {
 		for (let key in data[player].scores) {
 
@@ -16,9 +17,7 @@ pointData.subscribe((data) => {
 		}
 		allFunctions.total(player);
 	}
-	gameState.update(() => {
-		"ended";
-	});
+	gameState.set("ended")
 
 });
 

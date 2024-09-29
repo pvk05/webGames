@@ -2,12 +2,12 @@
     import { Button } from "flowbite-svelte";
 
     import { dice, diceRolls } from "./game.js";
-    import diceOne from "$lib/assets/dice-one-solid.svg";
-    import diceTwo from "$lib/assets/dice-two-solid.svg";
-    import diceThree from "$lib/assets/dice-three-solid.svg";
-    import diceFour from "$lib/assets/dice-four-solid.svg";
-    import diceFive from "$lib/assets/dice-five-solid.svg";
-    import diceSix from "$lib/assets/dice-six-solid.svg";
+    import diceOne from "$lib/assets/dice/dice-one-solid.svg";
+    import diceTwo from "$lib/assets/dice/dice-two-solid.svg";
+    import diceThree from "$lib/assets/dice/dice-three-solid.svg";
+    import diceFour from "$lib/assets/dice/dice-four-solid.svg";
+    import diceFive from "$lib/assets/dice/dice-five-solid.svg";
+    import diceSix from "$lib/assets/dice/dice-six-solid.svg";
 
     // array of dice images
     const diceImgs = ["", diceOne, diceTwo, diceThree, diceFour, diceFive, diceSix];

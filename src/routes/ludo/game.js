@@ -1,6 +1,7 @@
 import { browser } from "$app/environment";
 import { get, writable } from "svelte/store";
 import Piece from './components/piece.svelte';
+import { mount } from "svelte";
 
 // game state
 export let gameState = writable("not started");
@@ -148,13 +149,13 @@ export function createGame(players) {
             // create pawn
             const pawn = new Pawn(
                 `Pawn ${j}`, 
-                new Piece({
-                    props: {
-                        player: i+1, 
-                        num: j
-                    },
-                    target: home
-                }), 
+                mount(Piece, {
+                                    props: {
+                                        player: i+1, 
+                                        num: j
+                                    },
+                                    target: home
+                                }), 
                 'home'
             );
 
@@ -260,13 +261,13 @@ function movePawn(pawn, newPos, newTarget, player, num) {
     // destroy pawn
     pawn.element.$destroy();
     // create new pawn
-    pawn.element = new Piece({
-        props: {
-            player: player,
-            num: num
-        },
-        target: newTarget
-    });
+    pawn.element = mount(Piece, {
+            props: {
+                player: player,
+                num: num
+            },
+            target: newTarget
+        });
     // set new position
     pawn.pos = newPos;
     return;
@@ -283,13 +284,13 @@ function moveOut(pawn, player, num) {
     // destroy pawn
     pawn.element.$destroy();
     // create new pawn
-    pawn.element = new Piece({
-        props: {
-            player: player,
-            num: num
-        },
-        target: document.getElementById(`path-${playerStartPaths[player]}`)
-    });
+    pawn.element = mount(Piece, {
+            props: {
+                player: player,
+                num: num
+            },
+            target: document.getElementById(`path-${playerStartPaths[player]}`)
+        });
     // set new position
     pawn.pos = playerStartPaths[player];
 
@@ -311,13 +312,13 @@ function moveIn(pawn, player, num, newID) {
     // destroy pawn
     pawn.element.$destroy();
     // create new pawn
-    pawn.element = new Piece({ 
-        props: {
-            player: player,
-            num: num
-        },
-        target: document.getElementById(`p${player}-in-${newID}`)
-    });
+    pawn.element = mount(Piece, { 
+            props: {
+                player: player,
+                num: num
+            },
+            target: document.getElementById(`p${player}-in-${newID}`)
+        });
     // set new position
     pawn.pos = 'in-' + newID;
     return;

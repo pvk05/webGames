@@ -33,27 +33,27 @@
 
 <Button class=" !bg-emerald-600" on:click={rollDice}>Roll Dice</Button>
 
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <div id="dice">
     <div>
-        <div id="die1"><img src={diceImgs[$dice[0].value]} alt="" on:click={() => lockDie(0)}/></div>
+        <div id="die1"><img src={diceImgs[$dice[0].value]} alt="" onclick={() => lockDie(0)}/></div>
     </div>
     <div id="die"></div>
     <div>
-        <div id="die2"><img src={diceImgs[$dice[1].value]} alt="" on:click={() => lockDie(1)}/></div>
+        <div id="die2"><img src={diceImgs[$dice[1].value]} alt="" onclick={() => lockDie(1)}/></div>
     </div>
     <div id="die"></div>
     <div>
-        <div id="die3"><img src={diceImgs[$dice[2].value]} alt="" on:click={() => lockDie(2)}/></div>
+        <div id="die3"><img src={diceImgs[$dice[2].value]} alt="" onclick={() => lockDie(2)}/></div>
     </div>
     <div id="die"></div>
     <div>
-        <div id="die4"><img src={diceImgs[$dice[3].value]} alt="" on:click={() => lockDie(3)}/></div>
+        <div id="die4"><img src={diceImgs[$dice[3].value]} alt="" onclick={() => lockDie(3)}/></div>
     </div>
     <div id="die"></div>
     <div>
-        <div id="die5"><img src={diceImgs[$dice[4].value]} alt="" on:click={() => lockDie(4)}/></div>
+        <div id="die5"><img src={diceImgs[$dice[4].value]} alt="" onclick={() => lockDie(4)}/></div>
     </div>
 </div>
 

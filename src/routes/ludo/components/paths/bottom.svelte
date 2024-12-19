@@ -1,5 +1,6 @@
 <script>
-	export let player;
+	/** @type {{player: any}} */
+	let { player } = $props();
 
 	const color = "bg-player" + player;
 </script>

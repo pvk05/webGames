@@ -1,4 +1,6 @@
 <script>
+    /** @type {{children?: import('svelte').Snippet}} */
+    let { children } = $props();
     /** @type {import('./$types').LayoutData} */
     //export let data;
 </script>
@@ -9,4 +11,4 @@
     }
 </style>
 
-<slot />
+{@render children?.()}

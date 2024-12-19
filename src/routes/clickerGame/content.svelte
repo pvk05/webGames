@@ -16,33 +16,35 @@ tr {
 
 <div id="content">
 	<table id="resourceTable">
-		<tr>
-			<th>
-				<h2 id="resourceHeader">Resource</h2>
-				<span id="resourceDescription">
-					Lorem ipsum dolor sit, amet consectetur adipisicing elit. Assumenda suscipit itaque illo omnis aliquam asperiores corrupti ipsa recusandae vero reprehenderit ad mollitia, modi optio nam deserunt quis nulla nemo enim!
-				</span>
-				<br><br>
-				<button 
-				class="btn" onclick="clickGain(selectedResource)">Gain 1</button>
-			</th>
-		</tr>
-		<tr>
-			<td id="storageUpgradeBlock">
-				<h3>Storage Upgrade</h3>
-				<p>Upgrade storage to <span id="nextStorageUpgradeAmount"></span></p>
-				<p>Cost: <span id="nextStorageUpgradeCost"></span></p>
-				<button onclick="upgrade('storage')">Upgrade Storage</button>
-			</td>
-		</tr>
-		<tr>
-			<td id="upgradeOneBlock">
-				<h3><span id="upgradeOneName"></span>: <span id="upgradeOneAmount">0</span></h3>
-				<p id="upgradeOneDescription"></p>
-				<p>Cost: <span id="nextUpgradeOneCost"></span></p>
-				<button onclick="upgrade('one')">Buy Upgrade</button>
-			</td>
-		</tr>
+		<tbody>
+			<tr>
+				<th>
+					<h2 id="resourceHeader">Resource</h2>
+					<span id="resourceDescription">
+						Lorem ipsum dolor sit, amet consectetur adipisicing elit. Assumenda suscipit itaque illo omnis aliquam asperiores corrupti ipsa recusandae vero reprehenderit ad mollitia, modi optio nam deserunt quis nulla nemo enim!
+					</span>
+					<br><br>
+					<button 
+					class="btn" onclick={clickGain(selectedResource)}>Gain 1</button>
+				</th>
+			</tr>
+			<tr>
+				<td id="storageUpgradeBlock">
+					<h3>Storage Upgrade</h3>
+					<p>Upgrade storage to <span id="nextStorageUpgradeAmount"></span></p>
+					<p>Cost: <span id="nextStorageUpgradeCost"></span></p>
+					<button onclick={upgrade('storage')}>Upgrade Storage</button>
+				</td>
+			</tr>
+			<tr>
+				<td id="upgradeOneBlock">
+					<h3><span id="upgradeOneName"></span>: <span id="upgradeOneAmount">0</span></h3>
+					<p id="upgradeOneDescription"></p>
+					<p>Cost: <span id="nextUpgradeOneCost"></span></p>
+					<button onclick={upgrade('one')}>Buy Upgrade</button>
+				</td>
+			</tr>
+		</tbody>
 	</table>
 	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus
 		ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent

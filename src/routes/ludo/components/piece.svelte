@@ -1,13 +1,13 @@
 <script>
     import { move } from "../game.js";
 
-    export let player;
-    export let num;
+    /** @type {{player: any, num: any}} */
+    let { player, num } = $props();
 
     const color = "bg-player" + player;
 </script>
 
 
-<div id="p{player}piece#{num}" class="aspect-square w-2/3 m-auto {color} rounded-full border-2 border-black" on:click={() => move(player, num)} on:keydown={() => {}} role="button" tabindex="0">
+<div id="p{player}piece#{num}" class="aspect-square w-2/3 m-auto {color} rounded-full border-2 border-black" onclick={() => move(player, num)} onkeydown={() => {}} role="button" tabindex="0">
 
 </div>

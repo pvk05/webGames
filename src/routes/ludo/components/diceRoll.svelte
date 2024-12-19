@@ -1,4 +1,6 @@
 <script>
+    import { preventDefault } from 'svelte/legacy';
+
     import { roll } from "../game.js";
     import diceOne from "$lib/assets/dice/dice-one-solid.svg";
     import diceTwo from "$lib/assets/dice/dice-two-solid.svg";
@@ -32,4 +34,4 @@
 </div>
 
 
-<svelte:window on:keydown|preventDefault={rollFunc} />
+<svelte:window onkeydown={preventDefault(rollFunc)} />

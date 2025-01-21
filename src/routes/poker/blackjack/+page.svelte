@@ -2,7 +2,6 @@
 <script>
     /** @type {{ data: import('./$types').PageData }} */
     let { data } = $props();
-    import { redirect } from "@sveltejs/kit";
     import { CardDeck } from "$lib/cardDeck.js";
     import Card from "$lib/card.svelte";
     import { goto } from "$app/navigation";
@@ -15,6 +14,7 @@
 </script>
 
 <h1>Blackjack</h1>
+<a href="/poker/blackjack/singleplayer">Alene</a>
 <button onclick={() => start()}>New Game</button>
 <div class="hidden">
 {#each deck.deck as card}

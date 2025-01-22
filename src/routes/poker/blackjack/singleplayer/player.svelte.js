@@ -1,49 +1,33 @@
-import { CardDeck } from "$lib/cardDeck.js";
 
-class Blackjack {
-	constructor() {
-		this.deck = new CardDeck();
-		this.players = [new Player()];
-		this.dealer = new House();
-		this.deck.shuffle();
-	}
-
-	addPlayer(player) {
-		this.players.push(player);
-	}
-
-	shuffleDeck() {
-		this.deck.shuffle();
-	}
-	resetDeck() {
-		this.deck = new CardDeck();
-		this.deck.shuffle();
-	}
-	
-	deal() {
-		for (let i = 0; i < 2; i++) {
-			this.players.forEach(player => {
-				player.addCard(this.deck.draw());
-			});
-			this.dealer.addCard(this.deck.draw());
-		}
-	}
-}
-
-class Player {
+export default class Player {
 	chips = $state(1000)
 	hand = $state([])
+	stands = $state(false)
 
 	constructor() {
 		this.hand = [];
 	}
 
-	getHandValue() {
-		return this
-	}
-
-	getHand() {
-		return this.hand;
+	get value() {
+		let aces = 0;
+		let value = 0;
+		for (const card of this.hand) {
+			if (card.value === "ace") {
+				value += 11;
+				aces++;
+			}
+			else if (["jack", "queen", "king"].includes(card.value)) {
+				value += 10;
+			}
+			else {
+				value += card.value;
+			}
+		}
+		while (value > 21 && aces > 0) {
+			value -= 10;
+			aces--;
+		}
+		return value;
 	}
 
 	addCard(card) {
@@ -55,10 +39,6 @@ class Player {
 		this.handValue = 0;
 	}
 
-	getChips() {
-		return this.chips;
-	}
-
 	bet(amount) {
 		if (amount > this.chips) {
 			return false;
@@ -67,17 +47,3 @@ class Player {
 		return true;
 	}
 }
-
-class House extends Player {
-	hide2ndCard = $state(true)
-
-	constructor() {
-		super();
-	}
-
-	show2ndCard() {
-		this.hide2ndCard = false;
-	}
-}
-
-export { Player, Blackjack };

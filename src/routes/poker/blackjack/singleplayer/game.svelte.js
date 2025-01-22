@@ -1,10 +1,11 @@
 
-import { Player, Blackjack } from "./player.svelte.js";
+import Blackjack from './blackjack.svelte.js';
+import Player from './player.svelte.js';
 
 let game = $state(new Blackjack());
 console.log(game);
 
-let player = game.players[0];
-let betValue = $state({ value: 0});
+let player = new Player();
+game.addPlayer(player);
 
-export { player, betValue, game };
+export { player, game };
